@@ -1,10 +1,8 @@
 """Main.py: Bike Share Simulation."""
 
-
-# import matplotlib.pyplot as plt
-# import pandas as pd
+import csv
 import random
-# from datetime import datetime, timedelta
+from datetime import datetime, timedelta
 
 
 class BikeShare:
@@ -33,6 +31,7 @@ class BikeShare:
         action and updated totals.
     """
 
+
     def __init__(self, olin, wellesley):
         """
         Initializes the Bikeshare object with the number of bikes at each
@@ -47,6 +46,8 @@ class BikeShare:
         """
         self.olin = olin
         self.wellesley = wellesley
+        self.data = []  # Collects daily simulation data
+
 
     def __repr__(self):
         """
@@ -59,38 +60,7 @@ class BikeShare:
         """
         return f'Bikeshare(olin={self.olin}, wellesley={self.wellesley})'
 
-    def main(self):
-        """The instance to start the simulation."""
-        self.simulation()
 
-    def move_bikes(self, from_location, to_location, number):
-        """
-        Moves a specified number of bikes from one location to another, if
-        available.
-
-        Parameters
-        ----------
-        from_location : str
-            The location from which bikes will be moved
-            (e.g., 'olin' or 'wellesley').
-        to_location : str
-            The location to which bikes will be moved
-            (e.g., 'olin' or 'wellesley').
-        number : int
-            The number of bikes to move.
-
-        Returns
-        -------
-        None
-        """
-        if getattr(self, from_location) >= number:
-            setattr(self, from_location, getattr(self, from_location) - number)
-            setattr(self, to_location, getattr(self, to_location) + number)
-            print(f'Moved {number} bikes from {from_location} to '
-                  f'{to_location}.')
-        else:
-            print(f'Not enough bikes available at {from_location}to move '
-                  f'{number} bikes.')
 
     def bike_to_wellesley(self):
         """
@@ -114,6 +84,7 @@ class BikeShare:
 
         # Print the updated totals
         print(f"Total bikes - Olin: {self.olin}, Wellesley: {self.wellesley}")
+
 
     def bike_to_olin(self):
         """
@@ -139,36 +110,63 @@ class BikeShare:
         # Print the updated totals
         print(f"Total bikes = Olin: {self.olin}, Wellesley: {self.wellesley}")
 
-    def random_move(self):
+
+    def random_move(self, is_winter):
         """
         Picks a random number and moves a bike depending on the numbe generated.
         """
 
         number = random.random()
-        if number < 0.35:
-            print(f"Number: {number:.2f}")
-            result = self.bike_to_olin()
+        if is_winter:
+            if number < 0.20:
+                return self.bike_to_olin()
+            elif number < 0.60:
+                return self.bike_to_wellesley()
+        else: # summer
+            if number < 0.35:
+                return self.bike_to_olin()
 
-        elif number < 0.80:
-            print(f"Number: {number:.2f}")
-            result = self.bike_to_wellesley()
+            elif number < 0.65:
+                return self.bike_to_wellesley()
 
-        else:
-            print(f"Number: {number:.2f}")
-            print("No bikes were shared.")
-            result = "No bikes were shared"
+            elif number < 0.85:
+                return self.bike_to_olin() * 2
 
-        print(f"Random number: {number:.2f}, Action: {result}")  # Debug print
-        return result
+            else:
+                return self.bike_to_wellesley() * 2
 
-    def simulation(self):
+
+    def simulation(self, start_date, simulation_end_date):
         """Run simulation of business operations."""
-        number = random.randint(40, 151)
+        sim_date = start_date
+        while sim_date <= simulation_end_date:
+            # Determine if it's winter or summer based on the month
+            is_winter = sim_date.month in [11, 12, 1, 2]
 
-        for num in range(1, number):
-            self.random_move()
+            # Perform a bike-sharing action for the day
+            action = self.random_move(is_winter)
+
+            # Collect daily data
+            self.data.append({
+                "Date": sim_date.strftime('%Y-%m-%d'),
+                "Olin Bikes": self.olin,
+                "Wellesley Bikes": self.wellesley,
+                "Action": action
+            })
+
+            # Move to the next day
+            sim_date += timedelta(days=1)
+
+        # Write data to CSV
+        with open('data/bike_share_simulation.csv', mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=["Date", "Olin Bikes", "Wellesley Bikes", "Action"])
+            writer.writeheader()
+            writer.writerows(self.data)
 
 # Create an instance
 if __name__ == "__main__":
     bikeshare = BikeShare(olin=8, wellesley=4)
-    bikeshare.main()
+    # Enter start and end dates for simulation below
+    current_date = datetime(2023, 1, 1)
+    end_date = datetime(2024, 12, 31)
+    bikeshare.simulation(current_date, end_date)
