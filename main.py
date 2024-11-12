@@ -165,6 +165,7 @@ class BikeShare:
 
 # Create an instance
 if __name__ == "__main__":
+    # Set initial parameters for the number of bikes starting at each location
     bikeshare = BikeShare(olin=8, wellesley=4)
     # Enter start and end dates for simulation below
     current_date = datetime(2023, 1, 1)
