@@ -34,24 +34,24 @@ The simulation records daily data, including the number of bikes at each locatio
 
 1. **Define initial conditions**:
 
-    if __name__ == "__main__":
-    bikeshare = BikeShare *(olin=8, wellesley=4)*
-    current_date = datetime(2023, 1, 1)
-    end_date = datetime(2024, 12, 31)
-    bikeshare.simulation(current_date, end_date)
+    if __name__ == "__main__":  
+    bikeshare = BikeShare *(olin=8, wellesley=4)*  
+    current_date = datetime(2023, 1, 1)  
+    end_date = datetime(2024, 12, 31)  
+    bikeshare.simulation(current_date, end_date)  
 
 2. **Set Simulation Period**:
 
     if __name__ == "__main__":
-    bikeshare = BikeShare(olin=8, wellesley=4)
-    current_date = datetime *(2023, 1, 1)*
-    end_date = datetime *(2024, 12, 31)*
-    bikeshare.simulation(current_date, end_date)
+    bikeshare = BikeShare(olin=8, wellesley=4)  
+    current_date = datetime *(2023, 1, 1)*  
+    end_date = datetime *(2024, 12, 31)*  
+    bikeshare.simulation(current_date, end_date)  
 
-3. **Run the Simulation**: Execute the main script to run the simulation and generate a CSV file with daily data.
+3. **Run the Simulation**: Execute the main script to run the simulation and generate a CSV file with daily data.  
 
-    iPython: %run main.py
-    bash: python main.py
+    iPython: %run main.py  
+    bash: python main.py  
 
 ## Parameters
 
@@ -68,23 +68,23 @@ The simulation records daily data, including the number of bikes at each locatio
     - Wellesley Bikes: Number of bikes at Wellesley at the end of the day.
     - Action: Description of the action taken (e.g., moving bikes between locations).
 
-    **Sample Output**
-    Date	    Olin Bikes	Wellesley Bikes	        Action
-    2023-01-01	    8	        4	            Moved 1 bike from Wellesley
-    2023-01-02	    7	        5	            No bikes were shared
-    2023-01-03	    6	        6	            Moved 1 bike from Olin to Wellesley
+    **Sample Output**  
+    Date	    Olin Bikes	Wellesley Bikes	        Action  
+    2023-01-01	    8	        4	            Moved 1 bike from Wellesley  
+    2023-01-02	    7	        5	            No bikes were shared  
+    2023-01-03	    6	        6	            Moved 1 bike from Olin to Wellesley  
 
 ## Project Structure
 
-your-repository/
-│
-├── data/
-│   └── bike_share_simulation.csv    Output CSV file with simulation data
-│
-├── Main.py                          Main script to run the simulation
-│
-└── README.md                        Project documentation
+your-repository/  
+│  
+├── data/  
+│   └── bike_share_simulation.csv    Output CSV file with simulation data  
+│  
+├── Main.py                          Main script to run the simulation  
+│  
+└── README.md                        Project documentation  
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the Apache License. See the LICENSE file for details.
