@@ -69,21 +69,21 @@ The simulation records daily data, including the number of bikes at each locatio
     - Action: Description of the action taken (e.g., moving bikes between locations).
 
     **Sample Output**  
-    Date	    Olin Bikes	Wellesley Bikes	        Action  
-    2023-01-01	    8	        4	            Moved 1 bike from Wellesley  
-    2023-01-02	    7	        5	            No bikes were shared  
-    2023-01-03	    6	        6	            Moved 1 bike from Olin to Wellesley  
+    Date, 	    Olin Bikes, 	Wellesley Bikes, 	        Action  
+    2023-01-01, 	    8, 	        4, 	            Moved 1 bike from Wellesley  
+    2023-01-02, 	    7, 	        5, 	            No bikes were shared  
+    2023-01-03, 	    6, 	        6, 	            Moved 1 bike from Olin to Wellesley  
 
 ## Project Structure
 
 your-repository/  
 │  
 ├── data/  
-│   └── bike_share_simulation.csv    Output CSV file with simulation data  
+│   └── bike_share_simulation.csv,     Output CSV file with simulation data  
 │  
-├── Main.py                          Main script to run the simulation  
+├── Main.py,                           Main script to run the simulation  
 │  
-└── README.md                        Project documentation  
+└── README.md,                         Project documentation  
 
 ## License
 
